@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
-	<persistence-unit name="egzam6">
+	<persistence-unit name="cms">
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/egzam6" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cms?useSSL=true" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="coderslab" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
@@ -22,5 +22,4 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 			<property name="hibernate.connection.CharSet" value="utf8" />
 		</properties>
 	</persistence-unit>
-
 </persistence>
