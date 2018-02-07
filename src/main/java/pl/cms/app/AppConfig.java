@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.format.FormatterRegistry;
 //import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
@@ -21,6 +22,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import pl.cms.converter.AuthorConverter;
+import pl.cms.converter.CategoryConverter;
 
 //import pl.coderslab.modul6.converter.AuthorConverter;
 //import pl.coderslab.modul6.converter.PublisherConverter;
@@ -58,21 +62,22 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return tm;
 	}
 
-//	@Override
-//	public void addFormatters(FormatterRegistry registry) {
-//		registry.addConverter(authorConverter());
-//		registry.addConverter(publisherConverter());
-//	}
-//
-//	@Bean
-//	public AuthorConverter authorConverter() {
-//		return new AuthorConverter();
-//	}
-//
-//	@Bean
-//	public PublisherConverter publisherConverter() {
-//		return new PublisherConverter();
-//	}
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(getAuthorConverter());
+		registry.addConverter(getCategoryConverter());
+		
+	}
+
+	@Bean
+	public AuthorConverter getAuthorConverter() {
+		return new AuthorConverter();
+	}
+
+	@Bean
+	public CategoryConverter getCategoryConverter() {
+		return new CategoryConverter();
+	}
 
 	@Bean(name = "localeResolver")
 	public LocaleContextResolver getLocaleContextResolver() {
