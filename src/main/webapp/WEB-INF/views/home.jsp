@@ -33,7 +33,7 @@
 		<h1>Categories</h1>
 		<c:forEach items="${allCategories}" var="category">
 			<c:out value="${category.name}" />
-			<a href="${pageContext.request.contextPath}/add/${category.id}">Display</a>
+			<a href="${pageContext.request.contextPath}/categories/edit/${category.id}">Display</a>
 		</c:forEach>
 	</form>
 

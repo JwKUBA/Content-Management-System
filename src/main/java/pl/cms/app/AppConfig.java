@@ -23,6 +23,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import pl.cms.converter.ArticleConverter;
 import pl.cms.converter.AuthorConverter;
 import pl.cms.converter.CategoryConverter;
 
@@ -72,6 +73,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public AuthorConverter getAuthorConverter() {
 		return new AuthorConverter();
+	}
+	
+
+	@Bean
+	public ArticleConverter getArticleConverter() {
+		return new ArticleConverter();
 	}
 
 	@Bean

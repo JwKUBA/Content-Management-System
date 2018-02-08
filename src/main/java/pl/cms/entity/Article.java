@@ -23,6 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 
+
 @Entity
 @Table(name = "articles")
 
@@ -35,7 +36,7 @@ public class Article {
 	private String title;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	Author author;
+	 private Author author;
 	
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
@@ -52,6 +53,7 @@ public class Article {
 	
 	@UpdateTimestamp
 	private LocalDateTime updated;
+	
 	
 	
 	

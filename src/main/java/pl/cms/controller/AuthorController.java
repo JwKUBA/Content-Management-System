@@ -1,5 +1,7 @@
 package pl.cms.controller;
 
+
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,12 @@ public class AuthorController {
 
 	@Autowired
 	AuthorRepository authorRepository;
-	@Autowired
-	Author author;
+	
 
-	@GetMapping("/list")
+
+	@GetMapping("")
 	public String showCategories(Model m) {
-		m.addAttribute("authors", authorRepository.findAll());
+		m.addAttribute("authorsAll", authorRepository.findAll());
 		return "/author/authors";
 
 	}
@@ -39,8 +41,8 @@ public class AuthorController {
 
 	}
 
-	@PostMapping("add")
-	public String addCategoriesPost(@Valid @ModelAttribute Author author, BindingResult br) {
+	@PostMapping("/add")
+	public String addCategories(@Valid @ModelAttribute Author author, BindingResult br) {
 		if (br.hasErrors()) {
 			return "/author/addAuthor";
 		}
@@ -57,8 +59,8 @@ public class AuthorController {
 
 	@GetMapping("/edit/{id}")
 	public String edit(Model m, @PathVariable long id) {
-		m.addAttribute("category", authorRepository.findOne(id));
-		return null;
+		m.addAttribute("authors", authorRepository.findOne(id));
+		return "/author/addAuthor";
 
 	}
 
@@ -70,5 +72,8 @@ public class AuthorController {
 		authorRepository.save(author);
 		return "redirect:/authors";
 	}
+	
+
+	
 
 }

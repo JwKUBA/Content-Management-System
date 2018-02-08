@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,56 +17,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.cms.entity.Article;
 import pl.cms.entity.Author;
+import pl.cms.entity.Category;
 import pl.cms.repository.ArticleRepository;
 import pl.cms.repository.AuthorRepository;
+import pl.cms.repository.CategoryRepository;
 
 
 @Controller
-@RequestMapping("/article")
+@RequestMapping("/articles")
 
 public class ArticleController {
 
 	@Autowired
 	ArticleRepository articleRepository;
 	@Autowired
-	AuthorRepository authorRepository;
+	CategoryRepository categoryRepository;
 	@Autowired
-	Article article;
+	AuthorRepository authorRepository;
+	
 
-	@GetMapping("/list")
+	@GetMapping("")
 	public String showCategories(Model m) {
-		m.addAttribute("article", articleRepository.findAll());
+		m.addAttribute("articlesAll", articleRepository.findAll());
 		return "/article/articles";
 
 	}
 
 	@GetMapping("/add")
-	public String addCategories(Model m) {
+	public String add(Model m) {
 		m.addAttribute("article", new Article());
 		return "/article/addArticle";
-
 	}
 
-	@PostMapping("add")
-	public String addCategoriesPost(@Valid @ModelAttribute Article article, BindingResult br) {
+	@PostMapping("/add")
+	public String add(@Valid @ModelAttribute Article article, BindingResult br) {
 		if (br.hasErrors()) {
 			return "/article/addArticle";
 		}
 		articleRepository.save(article);
-		return "redirect:/authors";
+		return "redirect:/articles";
 	}
 
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable long id) {
 		articleRepository.delete(id);
-		return "redirect:/authors";
+		return "redirect:/articles";
 
 	}
 
 	@GetMapping("/edit/{id}")
 	public String edit(Model m, @PathVariable long id) {
 		m.addAttribute("article", articleRepository.findOne(id));
-		return null;
+		return "/article/addArticle";
 
 	}
 
@@ -78,14 +81,14 @@ public class ArticleController {
 		return "redirect:/articles";
 	}
 
-	@ModelAttribute("availableAuthors")
+	@ModelAttribute("authors")
 	public List<Author> getAuthors() {
 		return this.authorRepository.findAll();
 	}
 	
-	@ModelAttribute("availableCategories")
-	public List<Article> getArticle() {
-		return this.articleRepository.findAll();
+	@ModelAttribute("categories")
+	public List<Category> getCategories() {
+		return this.categoryRepository.findAll();
 	}
 
 }

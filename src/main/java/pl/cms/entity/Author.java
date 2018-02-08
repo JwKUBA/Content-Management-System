@@ -76,6 +76,10 @@ public class Author {
 		this.articles = articles;
 	}
 	
+	public String getFullName() {
+		return firstName+ " " + lastName;
+	}
+	
 	
 	
 }

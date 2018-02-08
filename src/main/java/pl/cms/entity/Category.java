@@ -24,9 +24,9 @@ public class Category {
 	private long id;
 	
 	@NotEmpty
-	@Size(max= 25)
+	@Size(max= 25 , min=5)
 	private String name;
-	@Column(nullable = true)
+	@Column(nullable=true)
 	private String description;
 	
 	@ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER )

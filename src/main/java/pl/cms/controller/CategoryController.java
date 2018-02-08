@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,8 @@ public class CategoryController {
 
 	@Autowired
 	CategoryRepository categoryRespository;
-	@Autowired
-	Category category;
 
-	@GetMapping("/list")
+	@GetMapping("")
 	public String showCategories(Model m) {
 		m.addAttribute("categories", categoryRespository.findAll());
 		return "/category/categories";
@@ -39,8 +38,8 @@ public class CategoryController {
 
 	}
 
-	@PostMapping("add")
-	public String addCategoriesPost(@Valid @ModelAttribute Category category, BindingResult br) {
+	@PostMapping("/add")
+	public String addCategories(@Valid @ModelAttribute Category category, BindingResult br) {
 		if (br.hasErrors()) {
 			return "/category/addCategory";
 		}
@@ -58,7 +57,7 @@ public class CategoryController {
 	@GetMapping("/edit/{id}")
 	public String edit(Model m, @PathVariable long id) {
 		m.addAttribute("category", categoryRespository.findOne(id));
-		return null;
+		return "/category/addCategory";
 
 	}
 
