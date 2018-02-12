@@ -11,32 +11,40 @@
 <body>
 
 	<h1>Home Page</h1>
+	<%@include file="/WEB-INF/views/header.jsp"%>
 
 	<h2>Last 5 Articles</h2>
 	<c:forEach var="a" items="${lastArticles}">
 		<table border="1">
 			<tr>
 				<th scope="col">Title</th>
-				<th scope="col">Created
+				<th scope="col">Created</th>
+				<th scope="col">Show
 				<th>
 			</tr>
 			<tr>
 				<td>${a.title}</td>
 				<td>${a.created}</td>
+				<td><a href="${pageContext.request.contextPath}/articles/show/${a.id}">Show</a></td>
 			</tr>
 		</table>
 		<p>${a.content}</p>
 	</c:forEach>
 	<br></br>
 
-	<form action="post">
-		<h1>Categories</h1>
-		<c:forEach items="${allCategories}" var="category">
-			<c:out value="${category.name}" />
-			<a href="${pageContext.request.contextPath}/categories/edit/${category.id}">Display</a>
-		</c:forEach>
-	</form>
-
+	<form method="post">
+  <label for="selector">Show articles in</label>
+  <select id="selector" name="categoryId">
+  
+   <c:forEach var="c" items="${allCategories}">
+    <option value="${c.id}" label="${c.name}"/>
+   </c:forEach>
+  </select>
+  <input type="submit" value="Go"/>
+ </form><hr>
+	
+	
+	
 
 </body>
 </html>

@@ -10,6 +10,7 @@
 </head>
 <body>
  <h1>Articles</h1>
+ <%@include file="/WEB-INF/views/header.jsp"%>
  
  <table border="1">
   <tr>
@@ -17,20 +18,21 @@
    <th scope="col">Author</th>
    <th scope="col">Created</th>
    <th scope="col">Updated</th>
-   <th colspan="2">Actions</th>
+   <th colspan="3">Actions</th>
   </tr>
   <c:forEach var="a" items="${articlesAll}">
    <tr>
     <td>${a.title}</td>
-    <td>${a.author}</td>
+    <td>${a.author.firstName}</td>
      <td>${a.created}</td>
       <td>${a.updated}</td>
     <td><a href="${pageContext.request.contextPath}/articles/edit/${a.id}">Edit</a></td>
     <td><a href="${pageContext.request.contextPath}/articles/delete/${a.id}">Delete</a></td>
+    <td><a href="${pageContext.request.contextPath}/articles/show/${a.id}">Show</a></td>
    </tr>
   </c:forEach>
  </table>
- <a href="${pageContext.request.contextPath}/article/add">Add new articles</a>
+ <a href="${pageContext.request.contextPath}/articles/add">Add new articles</a>
  
 
 </body>

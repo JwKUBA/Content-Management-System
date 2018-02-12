@@ -6,29 +6,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Authors</title>
+<title>Draft</title>
 </head>
 <body>
- <h1>Authors</h1>
+ <h1>Draft</h1>
  <%@include file="/WEB-INF/views/header.jsp"%>
- 
  
  <table border="1">
   <tr>
-   <th scope="col">First name</th>
-   <th scope="col">Last name</th>
+   <th scope="col">Title</th>
+   <th scope="col">Created</th>
+   <th scope="col">Updated</th>
    <th colspan="2">Actions</th>
   </tr>
-  <c:forEach var="a" items="${authorsAll}">
+  <c:forEach var="a" items="${draftAll}">
    <tr>
-    <td>${a.firstName}</td>
-    <td>${a.lastName}</td>
-    <td><a href="${pageContext.request.contextPath}/authors/edit/${a.id}">Edit</a></td>
-    <td><a href="${pageContext.request.contextPath}/authors/delete/${a.id}">Delete</a></td>
+    <td>${a.title}</td>
+      <td>${a.created}</td>
+      <td>${a.updated}</td>
+    <td><a href="${pageContext.request.contextPath}/drafts/edit/${a.id}">Edit</a></td>
+    <td><a href="${pageContext.request.contextPath}/drafts/delete/${a.id}">Delete</a></td>
    </tr>
   </c:forEach>
  </table>
- <a href="${pageContext.request.contextPath}/authors/add">Add new author</a>
+ <a href="${pageContext.request.contextPath}/drafts/add">Add new drafts</a>
  
+
 </body>
 </html>

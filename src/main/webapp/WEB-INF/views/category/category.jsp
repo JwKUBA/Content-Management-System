@@ -9,10 +9,11 @@
 <title>Category</title>
 </head>
 <body>
+<%@include file="/WEB-INF/views/header.jsp"%>
 <h1>Category: ${category.name}</h1>
- <c:forEach var="cat" items="${articles}">
- <p>Title: ${cat.title} : Author: ${cat.author}</p>
- 
+ <c:forEach var="cat" items="${categoryArticles}">
+ <p>Title: ${cat.title} : Author: ${cat.author.firstName}</p>
+ <a href="${pageContext.request.contextPath}/articles/show/${cat.id}">Show</a>
  </c:forEach>
 
 

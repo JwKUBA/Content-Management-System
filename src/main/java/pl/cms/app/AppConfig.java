@@ -27,8 +27,6 @@ import pl.cms.converter.ArticleConverter;
 import pl.cms.converter.AuthorConverter;
 import pl.cms.converter.CategoryConverter;
 
-//import pl.coderslab.modul6.converter.AuthorConverter;
-//import pl.coderslab.modul6.converter.PublisherConverter;
 
 @Configuration
 @ComponentScan(basePackages = {"pl.cms"})

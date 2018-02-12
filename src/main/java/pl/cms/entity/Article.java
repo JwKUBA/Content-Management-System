@@ -15,13 +15,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.NotEmpty;
 
-
+import pl.cms.validator.ArticleValidationGroup;
+import pl.cms.validator.Content;
+import pl.cms.validator.DraftValidationGroup;
 
 
 @Entity
@@ -31,20 +34,22 @@ public class Article {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Size(max=200)
+	@Size(max = 200)
+	@NotEmpty(groups = { ArticleValidationGroup.class, DraftValidationGroup.class })
 	private String title;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	 private Author author;
 	
-	@NotEmpty
+	@NotEmpty(groups = ArticleValidationGroup.class)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
 	@JoinTable(joinColumns = {@JoinColumn(name = "article_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "category_id") })
 	private List<Category> categories;
 	
 	
+	@NotEmpty
+	@Content(minLength = 50, groups = { ArticleValidationGroup.class, DraftValidationGroup.class })
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
@@ -54,21 +59,22 @@ public class Article {
 	@UpdateTimestamp
 	private LocalDateTime updated;
 	
+	private boolean draft;
 	
-	
-	
-
-	public Article(String title, Author author, List<Category> categories, String content, LocalDateTime created,
-			LocalDateTime updated) {
+		
+	public Article(long id, String title, Author author, List<Category> categories, String content,
+			LocalDateTime created, LocalDateTime updated, boolean draft) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.categories = categories;
 		this.content = content;
 		this.created = created;
 		this.updated = updated;
+		this.draft = draft;
 	}
-	
+
 	public Article() {
 		super();
 		
@@ -128,6 +134,14 @@ public class Article {
 
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
+	}
+
+	public boolean isDraft() {
+		return draft;
+	}
+
+	public void setDraft(boolean draft) {
+		this.draft = draft;
 	}
 	
 	

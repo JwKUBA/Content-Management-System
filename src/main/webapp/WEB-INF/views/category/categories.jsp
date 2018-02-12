@@ -10,6 +10,7 @@
 </head>
 <body>
  <h1>Categories</h1>
+ <%@include file="/WEB-INF/views/header.jsp"%>
  
  
  <table border="1">

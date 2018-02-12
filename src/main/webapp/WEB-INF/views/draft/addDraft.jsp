@@ -10,25 +10,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Add/Edit Article</h1>
+<h1>Add/Edit Draft</h1>
 <%@include file="/WEB-INF/views/header.jsp"%>
-
 
 <form:form method="post" modelAttribute="article">
   <form:input path="title" placeholder="Title"/><form:errors path="title"/><br>
-  <label for="author">Author</label>
-  
-  <form:select path="author" id="author">
-   <form:options items="${authors}" itemValue="id" itemLabel="fullName"/>
-  </form:select><br>
-  
-  <label for="category">Category</label><br>
-  <form:select path="categories" multiple="true" id="category">
-   <form:options items="${categories}" itemValue="id" itemLabel="name"/>
-  </form:select><form:errors path="categories"/><br>
   
   <label for="content">Content</label><br>
   <form:textarea path="content" id="content"/><form:errors path="content"/><br>
+   <form:input path="draft" type="hidden" value="true"/>
   <input type="submit"/>
  </form:form>
 

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +21,7 @@ import pl.cms.entity.Category;
 import pl.cms.repository.ArticleRepository;
 import pl.cms.repository.AuthorRepository;
 import pl.cms.repository.CategoryRepository;
+import pl.cms.validator.ArticleValidationGroup;
 
 
 @Controller
@@ -38,7 +39,7 @@ public class ArticleController {
 
 	@GetMapping("")
 	public String showCategories(Model m) {
-		m.addAttribute("articlesAll", articleRepository.findAll());
+		m.addAttribute("articlesAll", articleRepository.findALL());
 		return "/article/articles";
 
 	}
@@ -50,7 +51,7 @@ public class ArticleController {
 	}
 
 	@PostMapping("/add")
-	public String add(@Valid @ModelAttribute Article article, BindingResult br) {
+	public String add(@Validated(ArticleValidationGroup.class) @ModelAttribute Article article, BindingResult br) {
 		if (br.hasErrors()) {
 			return "/article/addArticle";
 		}
@@ -73,12 +74,20 @@ public class ArticleController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String edit(@Valid @ModelAttribute Article article, BindingResult br) {
+	public String edit(@Validated(ArticleValidationGroup.class) @ModelAttribute Article article, BindingResult br) {
 		if (br.hasErrors()) {
 			return "/article/addArticle";
 		}
 		articleRepository.save(article);
 		return "redirect:/articles";
+	}
+	
+	@GetMapping("/show/{id}")
+	public String Show(Model m ,@PathVariable long id) {
+		m.addAttribute("show", articleRepository.findOne(id));
+		return "/article/articlesShow";
+		
+		
 	}
 
 	@ModelAttribute("authors")

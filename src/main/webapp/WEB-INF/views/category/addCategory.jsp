@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>Add Categories</h1>
+	<%@include file="/WEB-INF/views/header.jsp"%>
 
 
 	<form:form method="post" modelAttribute="category">
